@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import {Container, Grid} from 'semantic-ui-react';
+import {Container, Grid, Segment, Dimmer, Loader} from 'semantic-ui-react';
 import {tagsRef, quotesRef} from './firebase';
 import _ from 'lodash';
 
@@ -40,6 +40,8 @@ const QuoteWrapper = styled.div`
   text-align: center;
   height: 370px;
   width: 100%;
+  margin: 0px auto;
+  max-width: 250px;
   box-sizing: border-box;
   padding: 2em; 
   box-shadow: -5px 10px 30px rgba(0,0,0,0.3);   
@@ -94,7 +96,8 @@ class TopFiveQuotesPanel extends Component {
                     <Container>
                         <H1>Today's popular quotes</H1>
                         <H3>Help us spread the word</H3>
-                        <Grid padded columns={4} doubling container>
+                        {this.state.topQuotes.length ?
+                        <Grid padded centered columns={4} doubling stackable container>
                             <Grid.Row>
                             {this.state.topQuotes.map( (quote, index) =>
                                 <Grid.Column width={4}>
@@ -115,6 +118,13 @@ class TopFiveQuotesPanel extends Component {
                             )}
                             </Grid.Row>
                         </Grid>
+                            :
+                            <div>
+                                <Dimmer active inverted>
+                                    <Loader inverted>Loading</Loader>
+                                </Dimmer>
+                            </div>}
+
                     </Container>
                 </ColorOverlay>
             </FullWidthWrapper>
