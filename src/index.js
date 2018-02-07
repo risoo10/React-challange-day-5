@@ -12,6 +12,7 @@ const theme = {
     brandBlack: '#41504f',
     brandGrey: '#bec2c2',
     redColor: '#f5655d',
+    blueOverlay: 'rgba(56, 201, 191, 0.9)',
     h1Size: '23px',
     h2Size: '17px',
     h3Size: '13px',

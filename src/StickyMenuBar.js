@@ -5,6 +5,7 @@ import {Menu, Container, Input} from 'semantic-ui-react';
 const FullWidthBg = styled.div`
     background-color: ${props => props.theme.brandBlue};
     padding: 20px 0px;
+    box-shadow: 5px 0px 10px rgba(0,0,0,0.45);
 `
 
 const TransparentMenu = styled(Menu)`
