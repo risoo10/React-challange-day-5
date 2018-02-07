@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {Container} from 'semantic-ui-react';
+import {tagsRef, quotesRef} from './firebase';
+import _ from 'lodash';
 
 const FullWidthWrapper = styled.div`{
   background: transparent url("top-five-bg.jpg") 0 0;
@@ -28,6 +30,51 @@ const H3 = styled.h3`
 `
 
 class TopFiveQuotesPanel extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            quotes: {},
+            tags: {}
+        }
+    }
+
+    componentDidMount() {
+
+        let tags = [];
+
+        tagsRef.on('value', snap => {
+            const cloned = _.clone(snap.val());
+            _(cloned).keys().forEach(key => {
+                const newTag = {
+                    key: key,
+                    name: cloned[key],
+                }
+                tags.push(newTag);
+            })
+            this.setState({
+                tags: tags
+            })
+        });
+
+        const quotes = [];
+
+        quotesRef.once('value', snap =>{
+            const cloned = _.clone(snap.val());
+            _(cloned).keys().forEach(key => {
+                const quote = {
+                    ...cloned[key],
+                    key: key,
+                }
+                quotes.push(quote);
+            })
+            this.setState({
+                quotes: quotes
+            })
+        })
+
+    }
+
     render() {
         return (
             <FullWidthWrapper>
